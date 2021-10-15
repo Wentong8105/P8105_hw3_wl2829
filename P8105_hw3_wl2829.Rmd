@@ -1,0 +1,20 @@
+---
+title: "P8105_hw3_wl2829"
+author: "Wentong"
+date: "10/15/2021"
+output: github_document
+---
+
+```{r setup}
+library(tidyverse)
+```
+
+
+## Problem 1
+
+```{r}
+library(p8105.datasets)
+data("instacart")
+```
+
+
