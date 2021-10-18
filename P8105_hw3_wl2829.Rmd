@@ -8,6 +8,7 @@ output: github_document
 ```{r setup}
 library(tidyverse)
 library(dplyr)
+library(stringr)
 
 knitr::opts_chunk$set(
   fig.width = 6,
@@ -167,6 +168,30 @@ BRFSS_df %>%
 
 ```
 
+```{r}
+two_panel_plot = 
+  BRFSS_df %>% 
+  filter(year %in% c(2006, 2010)) %>% 
+  filter(state == "NY") %>% 
+  ggplot(aes(x = specific_location, y = data_value)) +
+  geom_point() +
+  coord_flip() +
+  facet_grid(. ~ year)
+  
+```
+
+## Problem 3
+```{r}
+acce_df = 
+  read_csv("./data/accel_data.csv") %>% 
+  pivot_longer(
+    activity.1:activity.1440,
+    names_to = "number of activity",
+    values_to = "activity"  
+  ) %>% 
+  janitor::clean_names() %>% 
+  mutate_at("number_of_activity", str_replace, "activity.", "")
+```
 
 
 
