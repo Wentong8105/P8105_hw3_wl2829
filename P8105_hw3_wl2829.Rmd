@@ -249,15 +249,12 @@ he data in the table does not show a clear trend of data changes, but the total 
 
 ### Accelerometer data allows the inspection activity over the course of the day. Make a single-panel plot that shows the 24-hour activity time courses for each day and use color to indicate day of the week. 
 
+
 ```{r}
 acce_df %>% 
-  group_by(day_id) %>% 
-  mutate(day_sum = sum(activity)) %>% 
-  select(week, day, day_sum) %>% 
-  distinct() %>% 
-  ggplot(aes(x = week, y = day_sum, color = day)) +
-  geom_line() +
-  geom_point()
+  mutate(minute_of_activity = as.numeric(minute_of_activity)) %>% 
+  ggplot(aes(x = minute_of_activity/60, y = activity, color = day)) +
+  geom_smooth() 
 ```
-This plot shows that the fluctuation of each day's data in different weeks is very obvious. However, their changing trends are very different. At the same time, the data gap at different times within a week is also relatively large. The data in the figure does not show a very obvious trend or law.
 
+This plot shows that the fluctuation of each day's data is very obvious. Activities value are relatively low between 12:00pm to 6:00am. However, after 6:00am, the value of the data began to rise and reaches the maximum at 9:00pm. Among them, the data of Saturday is quite special, since it reaches the maximum at about 10:00am. 
